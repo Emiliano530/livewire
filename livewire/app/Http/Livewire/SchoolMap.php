@@ -3,23 +3,19 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\Building;
 
 class SchoolMap extends Component
 {
-    public $classrooms;
-    public $selectedClassroom;
+    public $buildings;
+    public $selectedBuilding;
     public $showInfo;
     
     public function mount()
     {
-        $this->selectedClassroom = null;
+        $this->selectedBuilding = null;
         // Obtener la información de los salones de la escuela de la base de datos o de otra fuente de datos
-        $this->classrooms = [
-            ['id' => 1, 'name' => 'Salón 1', 'x' => 12.4, 'y' => 29, 'info' => 'Información detallada del salón 1', 'width' => 50, 'height' => 50],
-            ['id' => 2, 'name' => 'Salón 2', 'x' => 22.4, 'y' => 40, 'info' => 'Información detallada del salón 2', 'width' => 50, 'height' => 50],
-            ['id' => 3, 'name' => 'Salón 3', 'x' => 30, 'y' => 40, 'info' => 'Información detallada del salón 3', 'width' => 50, 'height' => 50],
-            // ...
-        ];
+        $this->buildings = Building::all();
     }
 
     public function render()
@@ -29,15 +25,15 @@ class SchoolMap extends Component
         return view('livewire.school-map', ['mapImage' => $mapImage]);
     }
 
-    public function showClassroomInfo($classroomId)
+    public function showBuildingInfo($buildingId)
     {
-        $this->selectedClassroom = collect($this->classrooms)->firstWhere('id', $classroomId);
+        $this->selectedBuilding = Building::find($buildingId);
         $this->showInfo = true;
     }
 
-    public function hideClassroomInfo()
+    public function hideBuildingInfo()
     {
-        $this->selectedClassroom = null;
+        $this->selectedBuilding = null;
         $this->showInfo = false;
     }
 }

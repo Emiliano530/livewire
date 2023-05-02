@@ -1,24 +1,25 @@
 <div class="w-full h-full relative">
     <img src="{{ $mapImage }}" alt="Mapa de la escuela" class="w-full h-full object-contain">
-    @foreach ($classrooms as $classroom)
-        <div class="absolute bg-red-500 cursor-pointer"
-             style="left: {{ $classroom['x'] }}%; top: {{ $classroom['y'] }}%; width: {{ $classroom['width'] }}px; height: {{ $classroom['height'] }}px;"
-             wire:mouseover="showClassroomInfo('{{ $classroom['id'] }}')"
-             wire:mouseout="hideClassroomInfo()"
-        ></div>
-    @endforeach
+    @foreach ($buildings as $building)
+    <div class="absolute bg-red-500 cursor-pointer"
+         style="left: {{ $building->left }}%; top: {{ $building->top }}%; width: {{ $building->width }}px; height: {{ $building->height }}px;"
+         wire:mouseover="showBuildingInfo('{{ $building->id }}')"
+         wire:mouseout="hideBuildingInfo()"
+    ></div>
+@endforeach
 
-    @if ($selectedClassroom)
-        <div class="absolute" style="left: {{ $selectedClassroom['x']}}%; top: {{ $selectedClassroom['y']}}%;"
-        wire:mouseover="showClassroomInfo('{{ $selectedClassroom['id'] }}', true)"
-             wire:mouseout="showClassroomInfo(null, false)">
-            <div class="bg-transparent pt-5">
+    @if ($selectedBuilding)
+        <div class="absolute" style="left: {{($selectedBuilding->left - 11.5) + 23 > 100 ? 100 - 28 : 
+          ($selectedBuilding->left - 11.5 < 0 ? abs($selectedBuilding->left - 11.5) + 1 : $selectedBuilding->left - 11.5)}}%; 
+      top: {{ $selectedBuilding->top + 56 > 100 ? abs($selectedBuilding->top - 56) : $selectedBuilding->top }}%; "
+        wire:mouseover="showBuildingInfo('{{ $selectedBuilding->id }}', true)"
+             wire:mouseout="showBuildingInfo(null, false)">
                 <div class="w-80 rounded overflow-hidden shadow-lg">
                     <div class="flex justify-center">
-                      <img class="w-full" src="https://via.placeholder.com/350x150" alt="Imagen 1">
+                      <img class="w-full" src="{{ $selectedBuilding->image }}">
                     </div>
                     <div class="px-6 py-2 bg-white">
-                      <div class="font-bold text-xl mb-2">{{ $selectedClassroom['info'] }}</div>
+                      <div class="font-bold text-xl mb-2">{{ $selectedBuilding->name }}</div>
                     </div>
                       <div class="flex justify-end">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full flex items-center justify-between">
@@ -37,7 +38,6 @@
                     </button>
                   </div>
                   </div>
-            </div>
         </div>
     @endif
 </div>
