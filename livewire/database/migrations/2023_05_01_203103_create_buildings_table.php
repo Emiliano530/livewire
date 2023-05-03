@@ -21,10 +21,10 @@ return new class extends Migration
             $table->text('description');
             $table->text('references');
 
-            $table->integer('top');
-            $table->integer('left');
-            $table->integer('width');
-            $table->integer('height');
+            $table->float('top');
+            $table->float('left');
+            $table->float('width');
+            $table->float('height');
             $table->binary('image')->nullable();
         });
 

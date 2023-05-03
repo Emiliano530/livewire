@@ -10,6 +10,7 @@ class SchoolMap extends Component
     public $buildings;
     public $selectedBuilding;
     public $showInfo;
+    public $showDescription;
     
     public function mount()
     {
@@ -34,6 +35,17 @@ class SchoolMap extends Component
     public function hideBuildingInfo()
     {
         $this->selectedBuilding = null;
+        $this->showDescription = false;
         $this->showInfo = false;
+    }
+
+    public function showDescription()
+    {
+        $this->showDescription = true;
+    }
+
+    public function hideDescription()
+    {
+        $this->showDescription = false;
     }
 }
