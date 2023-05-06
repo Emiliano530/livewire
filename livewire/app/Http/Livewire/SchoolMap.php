@@ -11,7 +11,8 @@ class SchoolMap extends Component
     public $selectedBuilding;
     public $showInfo;
     public $showDescription;
-    
+    public $showNewData = false;
+
     public function mount()
     {
         $this->selectedBuilding = null;
@@ -41,6 +42,13 @@ class SchoolMap extends Component
 
     public function showDescription()
     {
+
+        ///ejemplo de role no va aqui solo lo pegue, era algo asi
+        // if $User->hasRole('guest'){
+          //  return true
+        //}
+       //return false
+
         $this->showDescription = true;
     }
 
@@ -48,4 +56,10 @@ class SchoolMap extends Component
     {
         $this->showDescription = false;
     }
+
+    public function showNewData()
+{
+    $this->showNewData = true;
+}
+
 }
