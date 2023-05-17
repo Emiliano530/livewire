@@ -1,3 +1,3 @@
 <x-app-layout>
-    @livewire('school-map')
+    @livewire('staff')
 </x-app-layout>

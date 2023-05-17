@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return view('dashboard');
+})->name('dashboard');
 
 Route::get('/counter', function () {
     return view('livewire.counter');
