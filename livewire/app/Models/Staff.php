@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,4 +17,29 @@ class Staff extends Model
     public $timestamps = false;
 
     protected $fillable = ['name', 'lastName', 'position', 'id_department'];
+
+    protected function Name(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
+    protected function LastName(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
+    protected function Position(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
 }

@@ -11,6 +11,7 @@ class Formals extends Component
     public $selectedForm;
     public $isModalOpen = false;
 
+
     public function mount()
     {
         $this->selectedForm = null;

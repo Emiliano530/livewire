@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Building;
 use App\Models\Staff;
 use App\Models\Formalities;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Department extends Model
 {
@@ -27,4 +28,21 @@ class Department extends Model
     public $timestamps = false;
 
     protected $fillable = ['name', 'description', 'id_building'];
+
+    protected function Name(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
+    protected function Description(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
 }

@@ -6,13 +6,14 @@
                 style="left: {{ $building->left }}%; top: {{ $building->top }}%; width: {{ $building->width }}%; height: {{ $building->height }}%;"
                 wire:click="showBuildingInfo('{{ $building->id }}')" wire:mouseout="hideBuildingInfo()"></div>
         @endforeach
-
         @if ($selectedBuilding)
-            <div class="absolute h-64"
-                style="left: {{ $selectedBuilding->left - 11.5 + 23 > 100 ? 100 - 28 : ($selectedBuilding->left - 11.5 < 0 ? abs($selectedBuilding->left - 11.5) + 1 : $selectedBuilding->left - 11.5) }}%; 
-      top: {{ $selectedBuilding->top + 64 > 100 ? abs($selectedBuilding->top) - (abs($selectedBuilding->top + 64 - 99) + 3) : $selectedBuilding->top }}%; "
+            @php
+                $left = $selectedBuilding->left - 11.5 + 23 > 100 ? 100 - 28 : ($selectedBuilding->left - 11.5 < 0 ? abs($selectedBuilding->left - 11.5) + 1 : $selectedBuilding->left - 11.5);
+                $top = $selectedBuilding->top + 64 > 100 ? abs($selectedBuilding->top) - (abs($selectedBuilding->top + 62 - 99) + 3) : $selectedBuilding->top;
+            @endphp
+            <div class="absolute h-64" style="left: {{ $left }}%; top: {{ $top }}%;"
                 wire:mouseover="showBuildingInfo('{{ $selectedBuilding->id }}', true)"
-                wire:mouseout="showBuildingInfo(null, false)"">
+                wire:mouseout="showBuildingInfo(null, false)">
                 <div class="w-80 rounded overflow-hidden shadow-lg">
                     <div class="flex justify-center h-44 w-full items-center overflow-hidden bg-gray-300">
                         <img class="object-bottom" src="{{ $selectedBuilding->image }}">
@@ -40,10 +41,9 @@
                             <div class="h-24 font-bold text-lg mb-2">{{ $selectedBuilding->description }}</div>
                         </div>
                         <div class="flex justify-end">
-
                             <button
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full flex items-center justify-between"
-                                wire:click="showNewData">
+                                wire:click="showNewData('{{ $selectedBuilding->id }}')">
                                 <span>Ver más</span>
                                 <svg class="icon w-4 h-4 fill-current" viewBox="0 0 20 20">
                                     <path
@@ -58,5 +58,19 @@
         @endif
     </div>
 @else
-    <h1>fff</h1>
+    <div>
+        <h1>Informacion del edificio</h1>
+        <h1>Departamentos</h1>
+        @foreach ($departments as $item)
+            <div>{{ $item->name }}</div>
+        @endforeach
+        <h1>Tramites</h1>
+        @foreach ($formalities as $form)
+            <div>{{ $form->name }}</div>
+        @endforeach
+        <h1>Personal</h1>
+        @foreach ($staff as $sta)
+            <div>{{ $sta->name }}</div>
+        @endforeach
+    </div>
 @endif

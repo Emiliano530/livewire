@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Department;
+use Attribute;
+use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
 
 class Building extends Model
 {
@@ -26,5 +28,46 @@ class Building extends Model
     public function setImageAttribute($value)
     {
         $this->attributes['image'] = file_get_contents($value);
+    }
+
+    protected function letter(): CastsAttribute
+    {
+        return new CastsAttribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
+    protected function name(): CastsAttribute
+    {
+        return new CastsAttribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
+    protected function comonName(): CastsAttribute
+    {
+        return new CastsAttribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
+    protected function Description(): CastsAttribute
+    {
+        return new CastsAttribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
+    }
+    protected function References(): CastsAttribute
+    {
+        return new CastsAttribute(
+            get: fn($value) => ucfirst($value),
+
+            set: fn($value) => strtolower($value)
+        );
     }
 }
